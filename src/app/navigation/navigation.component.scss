@@ -1,0 +1,130 @@
+// Page overlay effect
+#overlay {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 10%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(208, 196, 196, 0.2);
+    z-index: -999;
+    cursor: pointer;
+}
+
+// Navbar to display as flexbox with white background
+nav {
+    position: relative;
+    display: flex;
+    // justify-content: space-between;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+// Links styles on the navbar
+nav>a {
+
+    color: #333;
+    margin-right: 1rem;
+    font-family: 'Raleway';
+    font-style: normal;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 16px 12px;
+
+
+}
+
+nav>a:hover {
+    color: #5ECE7B;
+    border-bottom: 2px solid #5ECE7B;
+}
+
+.topnav-centered img {
+    float: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.topnav-right {
+    display: flex;
+    float: right;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-50%, -50%);
+}
+
+// shopping cart badge
+.badge {
+
+    // font-family: 'Raleway';
+    font-style: normal;
+    font-weight: bolder !important;
+    font-size: 14px;
+    line-height: 16px;
+    // color: #ffffff;
+}
+
+// dropdown content
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 60px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+// Links on the dropdown
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 12px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-family: 'Raleway';
+    width: 100% !important;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #fff;
+
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block !important;
+}
+
+// Cart dropdown 
+.cart-dropdown {
+    // z-index: 100000 !important;
+}
+
+// cart dropdown content
+.cart-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    // min-width: 300px;
+    // height: 80vh;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 100 !important;
+    background: #fff;
+}
+
+
+.cart-dropdown:hover .cart-dropdown-content {
+    display: block !important;
+
+}
