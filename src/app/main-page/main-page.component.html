@@ -1,4 +1,4 @@
-<div class="z-0 relative">
+
     <div class="h-full ml-12">
         <p class="categoty-heading">Category name</p>
     </div>
@@ -8,19 +8,20 @@
           <h2 class="sr-only">Products</h2>
     
           <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            <a *ngFor="let product of products"  class="group relative">
+            <a *ngFor="let product of products"  class="group">
                 <div class="hover:shadow-lg px-5 py-5">
-                    <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                        <img src={{product.imageSrc}} [alt]="product.imageAlt" class="h-full w-full object-cover object-center group-hover:opacity-75" />
+                    <div role="button" (click)="showDetails(product)" class=" aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                        <img src={{product.imageSrc[0].img}} [alt]="product.imageAlt" class="h-full w-full object-cover object-center group-hover:opacity-75" />
+                      
                       </div>
-                      <h3 class="font-['Raleway'] mt-4 text-lg text-gray-700">{{ product.name }}</h3>
-                      <p class="font-['Raleway'] mt-1 text-lg font-medium text-gray-900">{{ product.price }}</p>
-                      <button class="hidden group-hover:block bg-green-500 absolute bottom-[20%] right-[12%] rounded-[50%] text-sm flex items-center justify-center px-3 py-3" ><shopping-cart-outline-icon class="text-white"></shopping-cart-outline-icon></button>
-                    
+                      <h3 role="button" (click)="showDetails(product)" class="font-['Raleway'] mt-4 text-lg text-gray-700">{{ product.name }}</h3>
+                      <p class="font-['Raleway'] mt-1 text-lg font-medium text-gray-900">{{selectedCurrency[0].symbol}} {{ product.price }}</p>
+                     <div class="relative">  
+                      <button (click)="AddToCart(product)" class="z-10 hidden group-hover:block bg-green-500 absolute bottom-[50px] right-[10%] rounded-[50%] text-sm flex items-center justify-center px-3 py-3" ><shopping-cart-outline-icon class="text-white"></shopping-cart-outline-icon></button>
+                     </div>
                 </div>
         </a>
           </div>
         </div>
       </div>
     
-</div>

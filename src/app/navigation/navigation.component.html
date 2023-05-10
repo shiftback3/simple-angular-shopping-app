@@ -3,7 +3,7 @@
 <!-- <div id="overlay"></div> -->
 
   <!-- <div class="link-group"> -->
-  <a class="link" routerLink="/women">Women</a>
+  <a class="link" routerLink="/">Women</a>
   <a class="link" routerLink="/men">Men</a>
   <a class="link" routerLink="/kids">Kids</a>
   <!-- </div> -->
@@ -15,7 +15,7 @@
       <button
         class="dropbtn inline-flex w-full justify-center gap-x-1.5 bg-white px-3 text-sm text-gray-900"
       >
-        $
+        {{selectedCurrency[0].symbol}}
         <svg
           class="-mr-1 h-5 w-5 text-gray-400"
           viewBox="0 0 20 20"
@@ -31,9 +31,8 @@
       </button>
 
       <div class="dropdown-content">
-        <a href="#">$ USD</a>
-        <a href="#">€ EUR</a>
-        <a href="#">¥ JPY</a>
+      
+        <span role="button" (click)="swapCurrency(currency)" *ngFor="let currency of currencies">{{currency.symbol}} {{currency.name}}</span>
       </div>
     </div>
 
@@ -44,78 +43,96 @@
       <span
         class="absolute badge -top-1 left-4 rounded-[50%] text-sm flex items-center justify-center text-white bg-black px-2 py-2 font-black h-3 w-3"
         ><span style="font-size: x-small; font-weight: bold !important"
-          >3</span
+          >{{CartCount}}</span
         ></span
       >
       <div class="cart-dropdown-content">
        <div class="pointer-events-auto w-90 max-w-md">
-          <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
-            <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-              <div class="flex items-start justify-between">
-                <h2 class="text-lg font-medium text-gray-900 font-[Raleway]" id="slide-over-title"><span class="font-black">My Bag,</span>3 items</h2>
-                <div class="ml-3 flex h-7 items-center md:hidden">
-                  <button type="button" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
-                    <span class="sr-only">Close panel</span>
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+          <div class="flex h-[80vh] w-[350px] flex-col overflow-y-scroll bg-white shadow-xl">
+           
+ <ng-container *ngIf="cartItems.length > 0; else emptyCart">
+  <h2 class="text-lg font-medium text-gray-900 font-[Raleway] mt-2" id="slide-over-title"><span class="font-black">My Bag, </span> {{CartCount > 1 ? CartCount + " items" : CartCount + " item" }}</h2>
+     
+  <div *ngFor="let item of cartItems" class="flex-1 px-4 py-6 sm:px-6">
+    <div class="flex items-start justify-between">
+      <div class="ml-3 flex h-7 items-center md:hidden">
+        <button type="button" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
+          <span class="sr-only">Close panel</span>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
 <!-- Shopping on hover on desktop and click on mobile -->
-              <div class="mt-8 font-[Raleway]">
-                <div class="flow-root">
-                  <ul role="list" class="-my-6">
-                    <!-- ------product starts---- -->
-                    <li class="flex py-6 h-[190px]">
-                      
+    <div class="mt-8 font-[Raleway]">
+      <div class="flow-root">
+        <ul role="list" class="-my-6">
+          <!-- ------product starts---- -->
+          <li class="flex py-6 h-[190px]">
+            
 
-                      <div class="mr-16 flex flex-1 flex-col">
-                      
-                          <div class="flex text-base font-medium text-gray-900">
-                            <h3>
-                              <a href="#">Throwback Hip Bag</a>
-                            </h3>
-                            
-                          </div>
-
-                          <p class="font-black">$90.00</p>
-                          <div class="flex flex-col">
-                            <p>Size:</p>
-                            <p>Size value</p>
-                          </div>
-
-                          <div class="flex flex-col">
-                            <p>Color:</p>
-                            <p>Color-value</p>
-                          </div>
-                        
-                      
-                      </div>
-                      <div class="mr-1 flex flex-1 flex-col justify-between">
-<div class="border border-black"><plus-small-outline-icon></plus-small-outline-icon></div>
-<div>2</div>
-<div class="border border-black"><minus-small-outline-icon></minus-small-outline-icon></div>
-                      </div>
-                      <div class="w-24 flex-shrink-0 overflow-hidden rounded-md">
-                        <img src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="h-full w-full object-cover object-center">
-                      </div>
-                    </li>
-                <!-- -----Products End ----- -->
-                  </ul>
+            <div class="mr-4 flex flex-1 flex-col">
+            
+                <div class="flex text-base font-medium text-gray-900">
+                  <h3>
+                    <span (click)="showDetails(item)" role="button">{{item.name}}</span>
+                  </h3>
+                  
                 </div>
-              </div>
+
+                <p class="font-black text-left">{{selectedCurrency[0].symbol}} {{item.price}}</p>
+                <div class="flex flex-col">
+                  <p class="text-left font-black">Size:</p>
+                  <div class="flex tracking-tight text-gray-900">
+                    <div class="border border-black mx-2 justify-center px-2 py-1 text-[10px]">XS</div>
+                    <div class="border border-black mx-2 justify-center px-2 py-1 text-[10px] text-white bg-black">S</div>
+                    <div class="border border-black mx-2 justify-center px-2 py-1 text-[10px]">M</div>
+                    <div class="border border-black mx-2 justify-center px-2 py-1 text-[10px]">L</div>
+                </div>
+                </div>
+
+                <div class="flex flex-col mt-1">
+                  <p class="text-left font-black">Color:</p>
+                  <div class="flex tracking-tight text-gray-900">
+                    <div class="border border-[#0F6450] mx-2 justify-center px-2 py-2 bg-[#D3D2D5] "></div>
+                    <div class="border border-black mx-2 justify-center px-2 py-2 text-white bg-black"></div>
+                    <div class="mx-2 bg-[#0F6450] justify-center px-2 py-2"></div>
+                    
+                </div>
+                </div>
+              
+            
             </div>
+            <div class="mr-1 flex flex-col justify-between">
+<div (click)="AddToCart(item)" class="border border-black"><plus-small-outline-icon></plus-small-outline-icon></div>
+<div>{{item.quantity}}</div>
+<div (click)="RemoveFromCart(item)" class="border border-black"><minus-small-outline-icon></minus-small-outline-icon></div>
+            </div>
+            <div (click)="showDetails(item)" class="w-24 flex-shrink-0 overflow-hidden rounded-md">
+              <img src={{item.imageSrc[0].img}} alt={{item.imageAlt}} class="h-full w-full object-cover object-center">
+            </div>
+          </li>
+      <!-- -----Products End ----- -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #emptyCart>
+  <p>Your Cart is Empty!</p>
+</ng-template>
 
             <div class="px-4 py-6 sm:px-6 font-[Raleway]">
               <div class="flex justify-between text-base font-medium text-gray-900">
                 <p>Total</p>
-                <p>$262.00</p>
+                <p>{{selectedCurrency[0].symbol}} {{CartTotal}}</p>
+                
               </div>
-              
+              <!-- <div *ngFor="let item of cartItems">{{item.price}}</div> -->
               <div class="mt-6 flex justify-between">
-                <a href="#" class="flex items-center justify-center rounded-md bg-white px-5 py-3  font-medium text-black text-sm shadow-sm border border-black hover:bg-[#5ECE7B] hover:text-white hover:border-none">VIEW BAG</a>
-                <a href="#" class="flex items-center justify-center rounded-md border border-transparent bg-[#5ECE7B] px-5 py-3 text-base font-medium text-white shadow-sm hover:bg-white hover:text-black hover:border-black">CHECK OUT</a>
+                <a routerLink="/cart" class="flex items-center justify-center rounded-md bg-white px-5 py-3  font-medium text-black text-sm shadow-sm border border-black hover:bg-[#5ECE7B] hover:text-white hover:border-none">VIEW BAG</a>
+                <button (click)="this.payWithPaystack()" class="flex items-center justify-center rounded-md border border-transparent bg-[#5ECE7B] px-5 py-3 text-base font-medium text-white shadow-sm hover:bg-white hover:text-black hover:border-black">CHECK OUT</button>
               </div>
              
             </div>

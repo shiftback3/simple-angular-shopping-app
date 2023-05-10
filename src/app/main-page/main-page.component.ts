@@ -1,4 +1,11 @@
+import { AddToCart } from './../shared/actions/cart.actions';
 import { Component } from '@angular/core';
+import { ProductService } from '../services/product.service';
+import { Router } from '@angular/router';
+import { Product } from '../models/product';
+import { Select, Store } from '@ngxs/store';
+import { CurrencyState } from '../shared/state/currency.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
@@ -6,39 +13,53 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
-   products = [
-    {
-      id: 1,
-      name: 'Earthen Bottle',
-      href: '#',
-      price: '$48',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
-      imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
-    },
-    {
-      id: 2,
-      name: 'Nomad Tumbler',
-      href: '#',
-      price: '$35',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg',
-      imageAlt: 'Olive drab green insulated bottle with flared screw lid and flat top.',
-    },
-    {
-      id: 3,
-      name: 'Focus Paper Refill',
-      href: '#',
-      price: '$89',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg',
-      imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
-    },
-    {
-      id: 4,
-      name: 'Machined Mechanical Pencil',
-      href: '#',
-      price: '$35',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg',
-      imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
-    },
-    // More products...
-  ]
+  products: Array<Product> = []
+  selectedCurrency: any
+
+// set currency
+@Select(CurrencyState.Currency)
+Currency$!: Observable<any>;
+  constructor(
+    private productService: ProductService,
+   private _router: Router ,
+   private store: Store,
+    ) {
+      this.Currency$.subscribe({
+        next: (response) => this.selectedCurrency = response,
+        error: (e) => console.log(e)
+        
+      })
+      this.getProducts();
+    }
+    showDetails(data: Product){
+    this.productService.setProductDetails(data)
+      this._router.navigate(['/product-details/', data.id])
+      
+    }
+
+    // Get all Products
+  getProducts(){
+    this.productService.index().subscribe({
+      next: (response) => this.responseSuccess(response),
+      error: (e) => this.responseError(e)
+  })
+  }
+
+  responseSuccess(response: any){
+    this.products = response
+    
+
+  }
+
+  responseError(error: any){
+    console.log(error);
+   
+  }
+
+
+  AddToCart(data:Product) {
+    this.store.dispatch(new AddToCart(data));
+    // console.log(data);
+    
+  }
 }

@@ -1,0 +1,5 @@
+[
+    {"id":1, "symbol":"$","name":"USD"},
+    {"id":2, "symbol":"€","name":"EUR"},
+    {"id":3, "symbol":"¥","name":"JPY"}
+]
