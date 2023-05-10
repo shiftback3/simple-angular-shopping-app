@@ -1,27 +1,39 @@
-# MyProject
+## About The Project
+This is a Basic ecommerce application to demostrate simple activities like view product on the home page, adding product to cart, viewing product details, viewing cart and implementing a simple checkout with paystack.
+I try to keep everything simple and just follow what is on the [figma Design](https://www.figma.com/proto/MSyCAqVy1UgNap0pvqH6H3/Junior-Frontend-Test-Designs-(Public)?type=design&node-id=150-5&scaling=min-zoom&page-id=0%3A1), I used NGXS state management tool to manage the shopping cart and currency.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
+## Tools and Tech Stack
 
-## Development server
+- The frontend is pretty basic and it is built with [Angular](https://angular.io/) and [Tailwind](https://tailwindcss.com) to match the figma design. It is a simple app but [NGXS](https://ngxs.io) state management was used to manage the shopping cart state.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## getting Started
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To set up this project on you local you will have to do the following:
 
-## Build
+**1.** `git clone https://github.com/shiftback3/simple-angular-shopping-app.git` you will notice that you have a folder `simple-angular-shopping-app`.
+Run 
+```
+npm install
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
 
-## Running unit tests
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+ng serve -o 
+```
+to run the application and it will open at http://localhost:4200.
+ ## Test
+ No unit test was written, but a basic e2e test with Cypress just to make sure the expected home page loads, nothing complex on the test. To run the e2e test use 
+ ```
+ ng e2e
 
-## Running end-to-end tests
+ ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+ ## Demo
 
-## Further help
+ A quick demo video is available [here](https://www.loom.com/share/615f419e4158443ba5e38de4cba1cbdb), to have a preview of what is contained in this repo and you can also compare using this video if things work as expected.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Thank You!
+**[Ogbu Garuba Sunday](https://ogbugarubasunday.surge.sh/)**
+
