@@ -23,9 +23,9 @@ export class CartComponent {
   CartCount!: Number // set total cart count
   CartTotal!: Number // set total cart total amount
 
-// set currency
-@Select(CurrencyState.Currency)
-Currency$!: Observable<any>;
+  // set currency
+  @Select(CurrencyState.Currency)
+  Currency$!: Observable<any>;
 
 
   @Select(CartState.totalQuantity)
@@ -34,7 +34,7 @@ Currency$!: Observable<any>;
   @Select(CartState.cartItems)
   totalCart$!: Observable<any>;
 
-// total cart price
+  // total cart price
   @Select(CartState.totalPrice)
   totalPrice$!: Observable<any>;
 
@@ -47,89 +47,89 @@ Currency$!: Observable<any>;
   ) {
 
 
-    
 
-this.Currency$.subscribe({
-  next: (response) => this.selectedCurrency = response,
-  error: (e) => console.log(e)
-  
-})
+
+    this.Currency$.subscribe({
+      next: (response) => this.selectedCurrency = response,
+      error: (e) => console.log(e)
+
+    })
 
     this.totalCart$.subscribe({
       next: (response) => this.cartItems = response,
       error: (e) => console.log(e)
-      
-  })
+
+    })
     // set the total quantity from store
     this.totalQuantity$.subscribe({
       next: (response) => this.CartCount = response,
       error: (e) => console.log(e)
-      
-  })
-// set the total price from the cart store
-  this.totalPrice$.subscribe({
-    next: (response) => this.CartTotal = response,
-    error: (e) => console.log(e)
-    
-})
-}
 
+    })
+    // set the total price from the cart store
+    this.totalPrice$.subscribe({
+      next: (response) => this.CartTotal = response,
+      error: (e) => console.log(e)
 
-AddToCart(data:Product) {
-  this.store.dispatch(new AddToCart(data));
-  
-}
-
-
-RemoveFromCart(data:Product) {
-  this.store.dispatch(new RemoveFromCart(data));
-}
-
-showDetails(data: Product){
-  this.productService.setProductDetails(data)
-    this._router.navigate(['/product-details/', data.id])
-    
+    })
   }
 
-responseSuccess(response: any){
-  this.currencies = response
-  
 
-}
+  AddToCart(data: Product) {
+    this.store.dispatch(new AddToCart(data));
 
-responseError(error: any){
-  console.log(error);
- 
-}
+  }
 
 
-payWithPaystack(){
-  let self = this;
-  // alert('hello')
-  let handler = PaystackPop.setup({
-    key: 'pk_test_f96aa1f8f001b6d26c1b1e6ebdc392d2429af8bf', // Replace with your public key
-    email: 'shiftback3@gmail.com',
-    amount: Number(this.CartTotal) * 100,
-    ref: 'PYL-'+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-    // label: "Optional string that replaces customer email"
-    onClose: function(){
-      // alert('Window closed.');
-  
+  RemoveFromCart(data: Product) {
+    this.store.dispatch(new RemoveFromCart(data));
+  }
 
-    },
-    callback: function(response:any){
-      let message = 'Payment complete! Reference: ' + response.reference;
-      alert(message);
-          
-        },
-        err: (e:any) => {
-          console.log(e);
-          
-        }
-        
-      
-  
-});
-handler.openIframe();
-}
+  showDetails(data: Product) {
+    this.productService.setProductDetails(data)
+    this._router.navigate(['/product-details/', data.id])
+
+  }
+
+  responseSuccess(response: any) {
+    this.currencies = response
+
+
+  }
+
+  responseError(error: any) {
+    console.log(error);
+
+  }
+
+
+  payWithPaystack() {
+    let self = this;
+    // alert('hello')
+    let handler = PaystackPop.setup({
+      key: 'pk_test_f96aa1f8f001b6d26c1b1e6ebdc392d2429af8bf', // Replace with your public key
+      email: 'shiftback3@gmail.com',
+      amount: Number(this.CartTotal) * 100,
+      ref: 'PYL-' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+      // label: "Optional string that replaces customer email"
+      onClose: function () {
+        // alert('Window closed.');
+
+
+      },
+      callback: function (response: any) {
+        let message = 'Payment complete! Reference: ' + response.reference;
+        alert(message);
+
+      },
+      err: (e: any) => {
+        console.log(e);
+
+      }
+
+
+
+    });
+    handler.openIframe();
+  }
 }

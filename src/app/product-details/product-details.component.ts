@@ -11,25 +11,25 @@ import { AddToCart } from '../shared/actions/cart.actions';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent {
-  product!:Product
+  product!: Product
   constructor(
     private productService: ProductService,
-   private _router: Router,
-   private store: Store 
-    ) {
-      this.getProduct();
-    }
-  
-    // Get all Products
-  getProduct(){
-this.product = this.productService.getProductDetails()
-   console.log(this.product);
-   
+    private _router: Router,
+    private store: Store
+  ) {
+    this.getProduct();
   }
 
-  AddToCart(data:Product) {
+  // Get all Products
+  getProduct() {
+    this.product = this.productService.getProductDetails()
+    console.log(this.product);
+
+  }
+
+  AddToCart(data: Product) {
     this.store.dispatch(new AddToCart(data));
     // console.log(data);
-    
+
   }
 }

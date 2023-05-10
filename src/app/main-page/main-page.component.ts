@@ -16,50 +16,50 @@ export class MainPageComponent {
   products: Array<Product> = []
   selectedCurrency: any
 
-// set currency
-@Select(CurrencyState.Currency)
-Currency$!: Observable<any>;
+  // set currency
+  @Select(CurrencyState.Currency)
+  Currency$!: Observable<any>;
   constructor(
     private productService: ProductService,
-   private _router: Router ,
-   private store: Store,
-    ) {
-      this.Currency$.subscribe({
-        next: (response) => this.selectedCurrency = response,
-        error: (e) => console.log(e)
-        
-      })
-      this.getProducts();
-    }
-    showDetails(data: Product){
-    this.productService.setProductDetails(data)
-      this._router.navigate(['/product-details/', data.id])
-      
-    }
+    private _router: Router,
+    private store: Store,
+  ) {
+    this.Currency$.subscribe({
+      next: (response) => this.selectedCurrency = response,
+      error: (e) => console.log(e)
 
-    // Get all Products
-  getProducts(){
+    })
+    this.getProducts();
+  }
+  showDetails(data: Product) {
+    this.productService.setProductDetails(data)
+    this._router.navigate(['/product-details/', data.id])
+
+  }
+
+  // Get all Products
+  getProducts() {
     this.productService.index().subscribe({
       next: (response) => this.responseSuccess(response),
       error: (e) => this.responseError(e)
-  })
+    })
   }
 
-  responseSuccess(response: any){
+  responseSuccess(response: any) {
     this.products = response
-    
+
 
   }
 
-  responseError(error: any){
+  responseError(error: any) {
     console.log(error);
-   
+
   }
 
 
-  AddToCart(data:Product) {
+  AddToCart(data: Product) {
     this.store.dispatch(new AddToCart(data));
     // console.log(data);
-    
+
   }
 }

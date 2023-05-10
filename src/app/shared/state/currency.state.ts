@@ -7,35 +7,34 @@ export interface Currencies {
     id: number;
     name: string;
     symbol: string;
-    
-  }
-  
-  @State<Currencies[]>({
+
+}
+
+@State<Currencies[]>({
     name: 'currency',
     defaults: [
-        {id:1, symbol:"$",name:"USD"}
+        { id: 1, symbol: "$", name: "USD" }
     ]
-  })
+})
 
-  @Injectable()
-  export class CurrencyState {
+@Injectable()
+export class CurrencyState {
 
     @Selector()
-    static Currency(items: Currencies[]){
-      return items;
+    static Currency(items: Currencies[]) {
+        return items;
     }
 
-  
+
     @Action(SwapCurrency)
     SwapCurrency(ctx: StateContext<Currencies[]>, action: SwapCurrency) {
-      const state = action.payload;
-     
+        const state = action.payload;
+
         ctx.setState([
-          state
-      
+            state
+
         ]);
-    
+
     }
-  
-  }
-  
+
+}

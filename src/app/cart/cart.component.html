@@ -1,89 +1,143 @@
 <div class="flex flex-col mx-16">
-<ng-container  *ngIf="cartItems.length > 0; else emptyCart">
-    <h1 class="text-[28px] font-medium text-gray-900 font-[Raleway] mt-2 pb-8 border-b-2" id="slide-over-title">Cart</h1>
-       
-    <div *ngFor="let item of cartItems" class="flex-1 px-4 py-6 pb-10 sm:px-6 border-b-2">
+  <ng-container *ngIf="cartItems.length > 0; else emptyCart">
+    <h1
+      class="text-[28px] font-medium text-gray-900 font-[Raleway] mt-2 pb-8 border-b-2"
+      id="slide-over-title"
+    >
+      Cart
+    </h1>
+
+    <div
+      *ngFor="let item of cartItems"
+      class="flex-1 px-4 py-6 pb-10 sm:px-6 border-b-2"
+    >
       <div class="flex items-start justify-between">
         <div class="ml-3 flex h-7 items-center md:hidden">
-          <button type="button" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
+          <button
+            type="button"
+            class="-m-2 p-2 text-gray-400 hover:text-gray-500"
+          >
             <span class="sr-only">Close panel</span>
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            <svg
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
       </div>
-  <!-- Shopping on hover on desktop and click on mobile -->
+      <!-- Shopping on hover on desktop and click on mobile -->
       <div class="mt-8 font-[Raleway]">
         <div class="flow-root">
           <ul role="list" class="-my-6">
             <!-- ------product starts---- -->
             <li class="flex py-6 h-[190px]">
-              
-  
               <div class="mr-4 flex flex-1 flex-col">
-              
-                  <div class="flex font-medium text-2xl text-gray-900">
-                    <h3>
-                      <span (click)="showDetails(item)" role="button">{{item.name}}</span>
-                    </h3>
-                    
+                <div class="flex font-medium text-2xl text-gray-900">
+                  <h3>
+                    <span (click)="showDetails(item)" role="button">{{
+                      item.name
+                    }}</span>
+                  </h3>
+                </div>
+
+                <p class="font-black text-left text-xl">
+                  {{ selectedCurrency[0].symbol }} {{ item.price }}
+                </p>
+                <div class="flex flex-col">
+                  <p class="text-left font-black">Size:</p>
+                  <div class="flex tracking-tight text-gray-900">
+                    <div
+                      class="border border-black mx-2 justify-center px-5 py-3 text-[10px]"
+                    >
+                      XS
+                    </div>
+                    <div
+                      class="border border-black mx-2 justify-center px-5 py-3 text-[10px] text-white bg-black"
+                    >
+                      S
+                    </div>
+                    <div
+                      class="border border-black mx-2 justify-center px-5 py-3 text-[10px]"
+                    >
+                      M
+                    </div>
+                    <div
+                      class="border border-black mx-2 justify-center px-5 py-3 text-[10px]"
+                    >
+                      L
+                    </div>
                   </div>
-  
-                  <p class="font-black text-left text-xl">{{selectedCurrency[0].symbol}} {{item.price}}</p>
-                  <div class="flex flex-col">
-                    <p class="text-left font-black">Size:</p>
-                    <div class="flex tracking-tight text-gray-900">
-                      <div class="border border-black mx-2 justify-center px-5 py-3 text-[10px]">XS</div>
-                      <div class="border border-black mx-2 justify-center px-5 py-3 text-[10px] text-white bg-black">S</div>
-                      <div class="border border-black mx-2 justify-center px-5 py-3 text-[10px]">M</div>
-                      <div class="border border-black mx-2 justify-center px-5 py-3 text-[10px]">L</div>
+                </div>
+
+                <div class="flex flex-col mt-1">
+                  <p class="text-left font-black">Color:</p>
+                  <div class="flex tracking-tight text-gray-900">
+                    <div
+                      class="border border-[#0F6450] mx-2 justify-center px-3 py-3 bg-[#D3D2D5]"
+                    ></div>
+                    <div
+                      class="border border-black mx-2 justify-center px-3 py-3 text-white bg-black"
+                    ></div>
+                    <div
+                      class="mx-2 bg-[#0F6450] justify-center px-3 py-3"
+                    ></div>
                   </div>
-                  </div>
-  
-                  <div class="flex flex-col mt-1">
-                    <p class="text-left font-black">Color:</p>
-                    <div class="flex tracking-tight text-gray-900">
-                      <div class="border border-[#0F6450] mx-2 justify-center px-3 py-3 bg-[#D3D2D5] "></div>
-                      <div class="border border-black mx-2 justify-center px-3 py-3 text-white bg-black"></div>
-                      <div class="mx-2 bg-[#0F6450] justify-center px-3 py-3"></div>
-                      
-                  </div>
-                  </div>
-                
-              
+                </div>
               </div>
               <div class="mr-1 flex flex-col justify-between">
-  <div (click)="AddToCart(item)" class="border border-black"><plus-small-outline-icon></plus-small-outline-icon></div>
-  <div>{{item.quantity}}</div>
-  <div (click)="RemoveFromCart(item)" class="border border-black"><minus-small-outline-icon></minus-small-outline-icon></div>
+                <div (click)="AddToCart(item)" class="border border-black">
+                  <plus-small-outline-icon></plus-small-outline-icon>
+                </div>
+                <div>{{ item.quantity }}</div>
+                <div (click)="RemoveFromCart(item)" class="border border-black">
+                  <minus-small-outline-icon></minus-small-outline-icon>
+                </div>
               </div>
-              <div (click)="showDetails(item)" class="w-100 flex-shrink-0 overflow-hidden rounded-md">
-                <img src={{item.imageSrc[0].img}} alt={{item.imageAlt}} class="h-full w-full object-cover object-center">
+              <div
+                (click)="showDetails(item)"
+                class="w-100 flex-shrink-0 overflow-hidden rounded-md"
+              >
+                <img
+                  src="{{ item.imageSrc[0].img }}"
+                  alt="{{ item.imageAlt }}"
+                  class="h-full w-full object-cover object-center"
+                />
               </div>
             </li>
-        <!-- -----Products End ----- -->
+            <!-- -----Products End ----- -->
           </ul>
         </div>
       </div>
     </div>
     <div class="px-4 py-6 sm:px-6 font-[Raleway]">
-        <div class="flex  text-base font-medium text-gray-900">
-            <p>Quantity</p>
-            <p class="ml-10">{{CartCount}}</p>
-            
-          </div>
-        <div class="flex  text-base font-medium text-gray-900">
-          <p>Total</p>
-          <p class="ml-10">{{selectedCurrency[0].symbol}} {{CartTotal}}</p>
-          
-        </div>
-        <!-- <div *ngFor="let item of cartItems">{{item.price}}</div> -->
-        <div class="mt-6 flex justify-start mb-10">
-             <button (click)="this.payWithPaystack()" class="flex items-center justify-center rounded-md border border-transparent bg-[#5ECE7B] px-5 py-3 text-base font-medium text-white shadow-sm hover:bg-white hover:text-black hover:border-black">ORDER</button>
-        </div>
-       
+      <div class="flex text-base font-medium text-gray-900">
+        <p>Quantity</p>
+        <p class="ml-10">{{ CartCount }}</p>
       </div>
+      <div class="flex text-base font-medium text-gray-900">
+        <p>Total</p>
+        <p class="ml-10">{{ selectedCurrency[0].symbol }} {{ CartTotal }}</p>
+      </div>
+      <!-- <div *ngFor="let item of cartItems">{{item.price}}</div> -->
+      <div class="mt-6 flex justify-start mb-10">
+        <button
+          (click)="this.payWithPaystack()"
+          class="flex items-center justify-center rounded-md border border-transparent bg-[#5ECE7B] px-5 py-3 text-base font-medium text-white shadow-sm hover:bg-white hover:text-black hover:border-black"
+        >
+          ORDER
+        </button>
+      </div>
+    </div>
   </ng-container>
   <ng-template #emptyCart>
     <p>Your Cart is Empty!</p>
